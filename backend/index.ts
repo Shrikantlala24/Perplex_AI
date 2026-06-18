@@ -1,10 +1,21 @@
+import { env } from "bun";
 import express from "express";
+import { tavily } from '@tavily/core';
 
 const app = express();
-const port = 8080;
+const port = 3000;
+const client = tavily({ apiKey: env.TAVILY_API_KEY });
 
-app.get("/about", (req, res) => {
-    res.send("Hello World!");
+app.get("/", async (req, res) => {     
+    try {
+        const response = await client.search("what is deep learning", {
+            searchDepth: "advanced"
+        });
+        res.send(response);
+        console.log(response);
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
 });
 
 app.listen(port, () => {

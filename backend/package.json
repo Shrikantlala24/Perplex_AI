@@ -11,6 +11,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@tavily/core": "^0.7.6",
     "@types/express": "^5.0.6",
     "express": "^5.2.1",
     "figlet": "^1.11.0"
