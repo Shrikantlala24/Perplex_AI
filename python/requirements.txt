@@ -1,0 +1,5 @@
+tavily
+langchain
+langchain-google-genai
+streamlit
+fastapi[standard]

@@ -1,0 +1,10 @@
+venv
+python/venv
+
+backend/node_modules
+backend/env
+
+
+.claude
+.agents
+skills-lock.json
