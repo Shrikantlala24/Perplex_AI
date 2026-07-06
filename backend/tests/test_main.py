@@ -16,7 +16,7 @@ from auth import verify_clerk_token
 # Helpers
 # ---------------------------------------------------------------------------
 
-async def _fake_stream():
+async def _fake_stream(user_query, web_results):
     """Async generator that yields one chunk — simulates stream_synthesis."""
     yield "Hello from the synthesizer."
 
@@ -35,7 +35,7 @@ def client():
 
     with patch("main.get_query_list", return_value=["test query"]), \
          patch("main.web_search", return_value=[{"results": []}]), \
-         patch("main.stream_synthesis", return_value=_fake_stream()):
+         patch("main.stream_synthesis", new=_fake_stream):
         yield TestClient(app)
 
     app.dependency_overrides.clear()
@@ -57,6 +57,7 @@ def test_query_with_valid_auth_returns_200(client):
 
 def test_query_without_auth_returns_403():
     """A request with no Authorization header should be rejected before auth."""
+    app.dependency_overrides.pop(verify_clerk_token, None)
     # Don't override verify_clerk_token here — we want the real HTTPBearer to fire.
     with patch("main.get_query_list", return_value=[]), \
          patch("main.web_search", return_value=[]):
