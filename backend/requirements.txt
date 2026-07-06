@@ -1,0 +1,10 @@
+fastapi[standard]
+uvicorn[standard]
+langchain
+langchain-google-genai
+pydantic
+tavily-python
+python-dotenv
+PyJWT>=2.8
+cryptography>=42
+requests
