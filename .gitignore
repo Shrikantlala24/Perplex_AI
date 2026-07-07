@@ -1,11 +1,19 @@
-venv
-python/venv
-
-backend/node_modules
-backend/env
-
-
-.claude
+# ROOT directory
 .agents
+.claude
+.superpowers
+docs
+venv
+.env
 skills-lock.json
-.gitignore
+
+
+# Backend directory
+backend/_pycache_
+backend/.pytest_cache
+
+backend/env
+backend/venv
+
+# Frontend directory (Not complete yet)
+web_based
