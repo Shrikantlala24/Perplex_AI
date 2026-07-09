@@ -208,3 +208,19 @@ async def collect_synthesis_text(
     ):
         chunks.append(chunk)
     return "".join(chunks)
+
+
+def collect_synthesis_text_sync(
+    user_query: str,
+    web_results: List[Dict],
+    conversation_context: str = "",
+) -> str:
+    """Synchronously collect the synthesis result for Streamlit and other sync callers."""
+
+    return synthesis_chain.invoke(
+        {
+            "user_query": user_query,
+            "web_results": web_results,
+            "conversation_context": conversation_context,
+        }
+    )

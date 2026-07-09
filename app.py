@@ -7,7 +7,6 @@ the research trail that produced it.
 
 from __future__ import annotations
 
-import asyncio
 import html
 from datetime import datetime
 from typing import Any, Dict, List
@@ -16,7 +15,7 @@ import streamlit as st
 
 try:
     from backend.llm_orchestrate import (
-        collect_synthesis_text,
+        collect_synthesis_text_sync,
         format_conversation_context,
         get_query_list,
     )
@@ -264,12 +263,10 @@ def _run_research(query: str) -> Dict[str, Any]:
     web_results = web_search(query_list, search_depth=st.session_state.search_depth)
 
     progress.info("Synthesizing a cited answer...")
-    answer = asyncio.run(
-        collect_synthesis_text(
-            query,
-            web_results,
-            conversation_context=context_block,
-        )
+    answer = collect_synthesis_text_sync(
+        query,
+        web_results,
+        conversation_context=context_block,
     )
     progress.empty()
 
